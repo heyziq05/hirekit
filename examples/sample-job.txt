@@ -1,0 +1,25 @@
+Data Analyst - FinTech Payments (Kuala Lumpur)
+
+About the role
+We are looking for a Data Analyst to join our Payments Analytics team. You will turn transaction data into insights that help product and operations teams make decisions.
+
+Responsibilities
+- Build and maintain dashboards in Power BI to track payment success rates, fraud and customer retention
+- Write complex SQL queries to extract and transform data from our data warehouse (Snowflake)
+- Perform A/B testing analysis and present findings to stakeholders
+- Automate recurring reports using Python (pandas)
+- Partner with product managers and engineers to define KPIs
+- Ensure data quality and documentation of data pipelines
+
+Requirements
+- Bachelor's degree in Statistics, Computer Science, Mathematics or related field
+- 2+ years of experience as a Data Analyst
+- Strong SQL skills and experience with Power BI or Tableau
+- Experience with Python (pandas) for data analysis
+- Understanding of statistics and A/B testing
+- Excellent communication skills and ability to present to stakeholders
+
+Nice to have
+- Experience in payments, banking or fintech
+- Knowledge of Snowflake or dbt
+- Familiarity with fraud detection

@@ -1,0 +1,18 @@
+Aisha Rahman
+Petaling Jaya, Malaysia | +60 12-345 6789 | aisha.rahman@example.com | linkedin.com/in/aisharahman
+
+Work
+Junior Data Analyst, ShopLah (e-commerce), Mar 2023 - present
+- made weekly sales dashboards in Tableau for the marketing team
+- wrote SQL queries on our PostgreSQL database to pull order data
+- used Python pandas to clean data and automate the monthly sales report, saved about 5 hours a month
+- helped analyze results of email campaign experiments (A/B tests) and presented to marketing managers
+
+Intern, Maybank, Jun 2022 - Dec 2022
+- Excel reports on credit card transactions for the risk team
+- helped check data quality issues in customer records
+
+Education
+BSc Statistics, Universiti Malaya, 2022. CGPA 3.6
+
+Skills: SQL, Python, pandas, Tableau, Excel, statistics, regression
