@@ -34,6 +34,19 @@ claude plugin install hirekit@hirekit
 
 **Requirements:** Python 3.8+ (standard library only, nothing to `pip install`).
 
+## HireMate on mobile
+
+The plugin works in Claude on desktop and web. The Claude mobile app doesn't load plugins yet, but you can still practise with HireMate on your phone, including in voice mode, using a Claude Project:
+
+1. On [claude.ai](https://claude.ai) (web), create a new **Project** and name it **HireMate**.
+2. Open [`skills/mock-interview/SKILL.md`](skills/mock-interview/SKILL.md), copy everything below the `---` header, and paste it into the Project's **instructions**.
+3. Upload these two files to the Project's **files**:
+   - [`skills/mock-interview/references/question-bank.md`](skills/mock-interview/references/question-bank.md)
+   - [`skills/mock-interview/references/scoring-rubric.md`](skills/mock-interview/references/scoring-rubric.md)
+4. On your phone, open the **HireMate** Project in the Claude app and start a chat. Paste the job description (and your resume, if you like), then say **"Interview me"**. Tap the voice button to practise out loud.
+
+**tailor-it** and **ats-check** need to run scripts and create Word files, so use them on desktop or web.
+
 ## Scripts
 
 The skills run these for you. You can also run them yourself:
