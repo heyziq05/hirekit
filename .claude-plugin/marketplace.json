@@ -1,0 +1,15 @@
+{
+  "name": "hirekit",
+  "description": "HireKit: honest, ATS-friendly resumes, ATS checks and mock interviews for Claude.",
+  "owner": {
+    "name": "heyziq05"
+  },
+  "plugins": [
+    {
+      "name": "hirekit",
+      "source": "./",
+      "description": "Tailor your resume and cover letter to a job, check any resume's ATS score and formatting, and practise with a realistic mock interview. Never invents experience.",
+      "category": "productivity"
+    }
+  ]
+}
