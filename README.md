@@ -1,5 +1,5 @@
 # HireKit
-
+Author: heyziq05 
 A Claude plugin for job applications. It writes honest resumes and cover letters, checks any resume against an ATS, and runs realistic mock interviews.
 
 | Skill | What it does | Try saying |
