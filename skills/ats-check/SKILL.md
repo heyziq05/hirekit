@@ -7,7 +7,7 @@ description: Check how well an existing resume or CV will do with Applicant Trac
 
 Diagnose an existing resume: how well it matches a job, and whether an ATS can read it properly. This skill reports and recommends; it does not rewrite the resume. If the user wants a rewrite, hand off to the **tailor-it** skill at the end.
 
-`${CLAUDE_PLUGIN_ROOT}` is the plugin folder; Claude Code fills in the real path when this skill loads. If it still shows literally, the plugin folder is two levels above this skill's folder. The scripts use only the Python standard library; on Windows use `py` if `python` isn't found.
+Paths like `scripts/...` and `references/...` are inside this skill's own folder. Run the scripts using their full path inside that folder; the user's files stay where they are. The scripts use only the Python standard library; on Windows use `py` if `python` isn't found.
 
 ## Inputs
 
@@ -19,14 +19,14 @@ If text was pasted into the chat, save it to a file so the scripts can read it.
 ## 1. Format check (can an ATS read it?)
 
 ```bash
-python ${CLAUDE_PLUGIN_ROOT}/scripts/ats_format_check.py resume.docx
+python scripts/ats_format_check.py resume.docx
 ```
 
 It reports a format score out of 100 and each problem with a fix: tables, multiple columns, text boxes, images, header/footer contact details, unusual fonts, icon characters, missing standard headings, missing email/phone, missing dates, length.
 
 **Different file types:**
 - **.docx:** full structural check.
-- **PDF:** the script can't parse PDFs. Read the PDF yourself and check the same list from `${CLAUDE_PLUGIN_ROOT}/references/ats-rules.md`. Look especially at whether the text is real, selectable text: a scanned or image-only PDF is unreadable to an ATS, and that is the most serious problem possible. Also look for multi-column layouts, icons, skill bars and graphics.
+- **PDF:** the script can't parse PDFs. Read the PDF yourself and check the same list from `references/ats-rules.md`. Look especially at whether the text is real, selectable text: a scanned or image-only PDF is unreadable to an ATS, and that is the most serious problem possible. Also look for multi-column layouts, icons, skill bars and graphics.
 - **Pasted text or .txt/.md:** the script runs content checks only (headings, contact details, dates, length). Say that layout problems can't be checked from plain text, and suggest sending the actual file.
 
 The script uses simple rules. Use judgement on its findings: a "missing Skills heading" may be fine if skills are clearly listed under another standard heading, and a student may honestly have no Experience section.
@@ -34,7 +34,7 @@ The script uses simple rules. Use judgement on its findings: a "missing Skills h
 ## 2. Keyword match (does it rank for this job?)
 
 ```bash
-python ${CLAUDE_PLUGIN_ROOT}/scripts/keyword_score.py --jd job.txt --resume resume.docx --ignore "Company Name,City,Exact Job Title"
+python scripts/keyword_score.py --jd job.txt --resume resume.docx --ignore "Company Name,City,Exact Job Title"
 ```
 
 Put the hiring company's name, location and job title in `--ignore`, plus any other noise you spot in the keyword list (regions, generic words), then re-run so the score counts only real keywords.

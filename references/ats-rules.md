@@ -41,6 +41,12 @@ An ATS does two things: it **parses** the file into fields (name, contact, jobs,
 
 Only use numbers the candidate provided. If a bullet would benefit from a metric you don't have, ask the candidate ("roughly how many customers / how much time saved?") or write it without one.
 
+**Outcomes recruiters can read at a glance:**
+- Every project, and every job role, shows at least one result. For projects, it's the last bullet.
+- Best to weakest: a real number → a grade, award or ranking → real use or delivery → what it made possible.
+- Write numbers as digits and bold them with what they measure: "Used by **300 students**", "cut report time **from 6 hours to 1**".
+- Plain words, one line where possible. Never filler like "improved efficiency", and never an invented or rounded-up number.
+
 Strong action verbs by type:
 - Led / managed: Led, Directed, Coordinated, Supervised, Mentored
 - Built / created: Built, Developed, Designed, Launched, Implemented

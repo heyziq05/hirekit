@@ -56,10 +56,10 @@ If the job description or the candidate's info was pasted into the chat, save it
 
 ### 2. Analyze the job
 
-Run the keyword extractor to get a ranked list of the job's terms. `${CLAUDE_PLUGIN_ROOT}` is the plugin folder; Claude Code fills in the real path when this skill loads. If it still shows literally, the plugin folder is two levels above this skill's folder. The input files are wherever the user's files are.
+Run the keyword extractor to get a ranked list of the job's terms. Paths like `scripts/...` and `references/...` are inside this skill's own folder. Run the scripts using their full path inside that folder; the user's files stay where they are. The input files are wherever the user's files are.
 
 ```bash
-python ${CLAUDE_PLUGIN_ROOT}/scripts/keyword_score.py --jd job.txt --profile profile.txt --ignore "Company Name,City,Exact Job Title"
+python scripts/keyword_score.py --jd job.txt --profile profile.txt --ignore "Company Name,City,Exact Job Title"
 ```
 
 (Use `py` instead of `python` on Windows if `python` isn't found. The script uses only the Python standard library.)
@@ -88,8 +88,11 @@ Before writing, ask about the gaps in **one short message**: at most 5 questions
 > 1. Have you used **Kubernetes**? (Even in a class or side project.)
 > 2. Did you manage a **budget**? About how much?
 > 3. Was the final-year project **solo or team**?
+> 4. **NetWatch**: any result? (How many users, a grade, time saved, or is it live?)
 >
 > If not, I'll leave them out.
+
+If an important project or role has **no outcome** in the user's info, use one of the 5 questions to ask for it (as in question 4). Prioritise the projects most relevant to the job.
 
 If the user wants you to go straight ahead without questions, proceed and list the gaps in your final summary instead.
 
@@ -102,11 +105,37 @@ Write the resume in Markdown using **`assets/resume-template.md`**. It is the Hi
 - Bullets with `- `. Bold the 1–2 most job-relevant phrases in each bullet (usually the matched keywords), never the whole bullet.
 - Skills as `**Category:** item, item, item` lines, grouped to mirror the job's wording.
 
-Content rules (details in `${CLAUDE_PLUGIN_ROOT}/references/ats-rules.md`):
+Content rules (details in `references/ats-rules.md`):
 - **Summary:** 4–6 lines naming the target role, the strongest real qualifications, and availability (internships). Bold the key phrases, as in the template.
 - **Bullets:** action verb + what + how/tools + result. Put the most job-relevant bullets first. Show keywords *in use*, not just listed.
+- **Every project ends with its outcome.** See **Project outcomes** below. Apply the same idea to each job role: at least one bullet per role should show a result.
 - **Length:** let the content decide. It does not have to fit on one page. Include all relevant real experience, and spill onto a second page if needed. Do not cut useful content just to fit, and do not pad to fill space. Most resumes end up 1–2 pages; academic CVs and long careers can be longer.
 - Keep it ATS-safe. The template already avoids tables, columns, text boxes, icons and headers/footers, so don't add any.
+
+#### Project outcomes
+
+A recruiter skims each project for a few seconds and wants to know: *what did it achieve?* So every project gets **an outcome bullet as its last bullet**, written so it's understood at a glance.
+
+**1. Use the strongest real outcome the user gave, in this order:**
+1. **A number:** users, people, time saved, speed, money, size, count, percentage. ("Used by **300 students** in its first month.")
+2. **A grade, award or ranking.** ("Graded **A**." "**2nd place** of 40 teams.")
+3. **Real use or delivery.** ("Deployed on a live server." "Adopted by the residential college.")
+4. **What it made possible, in plain words.** ("Gave staff **one dashboard** to spot network faults early.")
+
+If the user gave more than one, combine the best two: "Used by **300 students**; graded **A**."
+
+**2. Numbers: only real ones, written clearly.**
+- Use numbers **only if they appear in the user's info or answers**. Never invent, estimate or round up a number.
+- Write them as **digits** so they stand out: "300 students", "5 hours a week", "40 workstations", "from 8,000 to 21,000 followers".
+- Simple maths on the user's own numbers is fine if it's exact: 8,000 → 21,000 followers can also be "**more than doubled** followers". Don't turn rough numbers into precise-looking ones. "About 300" stays "about 300" or "300+".
+- **Bold the number and what it measures**, not the whole bullet.
+
+**3. Easy to understand.**
+- Lead with the result when it's strong: "**Cut report time from 6 hours to 1** by automating it in Python," rather than burying it at the end.
+- Use plain words a non-technical recruiter understands. Keep the technical terms for the "how" part.
+- One line where possible, two at most.
+
+**4. If there's no outcome at all:** ask (step 3). If the user can't say, end with the most concrete honest result available, usually what it does or who it's for ("Lets students book clinic slots online"). Never write a vague filler like "improved efficiency".
 
 ### 5. Write the cover letter (if requested)
 
@@ -124,7 +153,7 @@ Use only addresses you actually have. If the company's address isn't in the job 
 Save the draft resume as Markdown (e.g. `resume.md`) and run:
 
 ```bash
-python ${CLAUDE_PLUGIN_ROOT}/scripts/keyword_score.py --jd job.txt --resume resume.md --profile profile.txt --ignore "<same list as step 2>"
+python scripts/keyword_score.py --jd job.txt --resume resume.md --profile profile.txt --ignore "<same list as step 2>"
 ```
 
 This reports:
@@ -141,9 +170,9 @@ Revise and re-run until the "consider adding" list is handled and every honesty 
 Build the Word files (A4 and Times New Roman by default, in the house style):
 
 ```bash
-python ${CLAUDE_PLUGIN_ROOT}/scripts/build_docx.py resume.md Firstname_Lastname_Resume.docx
-python ${CLAUDE_PLUGIN_ROOT}/scripts/build_docx.py cover_letter.md Firstname_Lastname_Cover_Letter.docx
-python ${CLAUDE_PLUGIN_ROOT}/scripts/ats_format_check.py Firstname_Lastname_Resume.docx
+python scripts/build_docx.py resume.md Firstname_Lastname_Resume.docx
+python scripts/build_docx.py cover_letter.md Firstname_Lastname_Cover_Letter.docx
+python scripts/ats_format_check.py Firstname_Lastname_Resume.docx
 ```
 
 The builder detects resume vs letter automatically (`--type` forces it). Use `--letter-paper` only for US/Canada applications. Name files with the candidate's name, since recruiters see the filename. If they want a PDF, they can save as PDF from Word.
@@ -166,9 +195,9 @@ Then offer one next step in a single line: practise with HireMate (the **mock-in
 
 ## Files this skill uses
 
-- `${CLAUDE_PLUGIN_ROOT}/scripts/keyword_score.py` — keyword extraction, match score, missing keywords, honesty flags. Run with `--help` for options (`--ignore`, `--top N`, `--json`).
-- `${CLAUDE_PLUGIN_ROOT}/scripts/build_docx.py` — turns the Markdown resume/cover letter into a .docx in the house style (Times New Roman, A4).
-- `${CLAUDE_PLUGIN_ROOT}/scripts/ats_format_check.py` — checks a finished .docx for things that break ATS parsing (run on the final file as a last check).
-- `${CLAUDE_PLUGIN_ROOT}/references/ats-rules.md` (shared with ats-check) — formatting and wording rules; read before writing the resume.
+- `scripts/keyword_score.py` — keyword extraction, match score, missing keywords, honesty flags. Run with `--help` for options (`--ignore`, `--top N`, `--json`).
+- `scripts/build_docx.py` — turns the Markdown resume/cover letter into a .docx in the house style (Times New Roman, A4).
+- `scripts/ats_format_check.py` — checks a finished .docx for things that break ATS parsing (run on the final file as a last check).
+- `references/ats-rules.md` — formatting and wording rules; read before writing the resume.
 - `references/cover-letter-guide.md` — read before writing a cover letter.
 - `assets/resume-template.md`, `assets/cover-letter-template.md` — Markdown structures that `build_docx.py` understands.

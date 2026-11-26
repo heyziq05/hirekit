@@ -26,10 +26,10 @@ Target-role sentence with your course or current role and **one or two standout 
 ## Projects
 ### **Project Name** | *Tool, Tool, Tool* || Personal Project
 - Built a **short description of what it is** for who / what purpose.
-- Gave users **the main result or benefit** to do what.
+- Used by **300 students** in its first month. <!-- outcome bullet: a real number + what it measures -->
 ### **Project Name** | *Tool, Tool* || Course Name
 - **Designed / built the main thing** (key details) with method.
-- Delivered **the result**; graded **A**.
+- Gave staff **one dashboard to spot faults early**; graded **A**. <!-- outcome bullet: plain-words result, grade, award or real use -->
 
 ## Leadership & Activities
 ### **Role**, *Event or Organisation* || YYYY
@@ -49,7 +49,8 @@ Format conventions (build_docx.py):
   ## Section         -> small-caps bold heading with a full-width rule
   ### left || right  -> entry line; text after " || " is right-aligned (location, dates, project type)
   text || text       -> second line under an entry, also right-aligned after " || "
-  - bullet           -> round bullet, indented
+  - bullet           -> round bullet, indented. The LAST bullet of every project is its outcome
+                        (write the outcome itself, not the word "Outcome:")
   **bold**, *italic* -> inline formatting
   Delete sections that don't apply. Leave out unknown details rather than guessing.
   Students: Summary, Education, Technical Skills, Projects, Leadership & Activities.

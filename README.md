@@ -1,5 +1,4 @@
 # HireKit
-<sub>Author: heyziq05</sub>
 
 A Claude plugin for job applications. It writes honest resumes and cover letters, checks any resume against an ATS, and runs realistic mock interviews.
 
@@ -48,9 +47,22 @@ The plugin works in Claude on desktop and web. The Claude mobile app doesn't loa
 
 **tailor-it** and **ats-check** need to run scripts and create Word files, so use them on desktop or web.
 
+## Use with other AI tools
+
+Each skill is a standard `SKILL.md` folder (the open [Agent Skills](https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation) format), so it also works in other AI tools that support skills, such as ChatGPT, OpenAI Codex, Gemini CLI and Cursor. Every skill folder is self-contained: its scripts and reference files are inside it.
+
+1. Download this repo (or the release zip).
+2. Copy the skill folders you want from `skills/` (`tailor-it`, `ats-check`, `mock-interview`) into your tool's skills folder. Check your tool's documentation for the exact location. For example, Codex and Gemini CLI read skills from a `skills` folder in their settings directory.
+3. Ask for what you need, e.g. "Tailor my resume for this job" or "Interview me for this role".
+
+Notes:
+- **tailor-it** and **ats-check** run small Python scripts (standard library only). The tool needs to be able to run code to score keywords and create Word files.
+- **mock-interview (HireMate)** needs no code at all. In tools without skill support, paste its `SKILL.md` into a custom assistant's instructions (for example a ChatGPT Custom GPT or a Gemini Gem) and add its two `references/` files as knowledge.
+- Other AI models may follow the instructions slightly differently from Claude.
+
 ## Scripts
 
-The skills run these for you. You can also run them yourself:
+The skills run these for you. You can also run them yourself from the repo root:
 
 ```bash
 # Job keywords, and which ones your background covers
@@ -73,19 +85,30 @@ hirekit/
 ├── .claude-plugin/
 │   ├── plugin.json            # plugin name, version, description
 │   └── marketplace.json       # lets people install it from this GitHub repo
-├── skills/
-│   ├── tailor-it/         # SKILL.md, cover letter guide, templates
-│   ├── ats-check/             # SKILL.md
-│   └── mock-interview/        # SKILL.md, question bank, scoring rubric
-├── scripts/                   # shared Python scripts (keyword score, format check, .docx builder)
-├── references/ats-rules.md    # shared ATS formatting and wording rules
-└── examples/                  # a fictional sample job, profile and tailored resume
+├── skills/                    # each skill is self-contained and works on its own
+│   ├── tailor-it/             # SKILL.md, scripts/, references/, assets/ (templates)
+│   ├── ats-check/             # SKILL.md, scripts/, references/
+│   └── mock-interview/        # SKILL.md, references/ (question bank, scoring rubric)
+├── scripts/                   # MASTER copies of the shared Python scripts
+├── references/ats-rules.md    # MASTER copy of the shared ATS rules
+├── tools/sync_shared.py       # copies the master files into the skills
+├── examples/                  # a fictional sample job, profile and tailored resume
+└── CHANGELOG.md
+```
+
+### Editing shared files
+
+`tailor-it` and `ats-check` carry their own copies of the shared scripts and ATS rules, so each works alone. Edit the **master** copies in `scripts/` and `references/`, then run:
+
+```bash
+python tools/sync_shared.py          # copy the changes into the skills
+python tools/sync_shared.py --check  # confirm every copy matches (use before a release)
 ```
 
 ## Limitations
 
 - Keyword scores are a heuristic. Real ATS products (Workday, Greenhouse, Taleo and others) each rank differently, so treat scores as a guide, not a guarantee.
-- The format check fully inspects `.docx` files. For PDFs, Claude reads the file and applies the same checklist.
+- The format check fully inspects `.docx` files. For PDFs, the AI reads the file and applies the same checklist.
 - The honesty check can't understand negation, so it runs on resumes, not cover letters.
 - Mock interview feedback is practice coaching, not a prediction of any real hiring decision.
 
