@@ -1,7 +1,7 @@
 {
   "name": "hirekit",
   "displayName": "HireKit",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "Honest, ATS-friendly job applications: tailor your resume and cover letter to a job, check any resume's ATS score and formatting, and practise with a realistic mock interview. Never invents experience.",
   "author": {
     "name": "heyziq05"
